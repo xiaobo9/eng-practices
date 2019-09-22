@@ -43,14 +43,10 @@ And so on.
 Delaying a release for a week is not disastrous. Missing an important conference
 might be disastrous, but often is not.
 
-Most deadlines are soft deadlines, not hard deadlines. They represent a desire
-for a feature to be done by a certain time. They are important, but you
-shouldn’t be sacrificing code health to make them.
+大多数截止日期不是硬截止时间。它们表示希望在一定时间之前完成某项功能。
+它们很重要，但是不应该为了完成该功能而牺牲代码质量。
 
-If you have a long release cycle (several weeks) it can be tempting to sacrifice
-code review quality to get a feature in before the next cycle. However, this
-pattern, if repeated, is a common way for projects to build up overwhelming
-technical debt. If developers are routinely submitting CLs near the end of the
-cycle that "must get in" with only superficial review, then the team should
-modify its process so that large feature changes happen early in the cycle and
-have enough time for good review.
+如果发布周期较长（几周），可能会牺牲代码审查质量，在下一个周期之前把功能合并进来。
+但是，这种模式，如果多次出现的话，是项目积累压倒性技术债务的一种常见方式。
+如果开发人员常规地在周期结束时提交 "必须要合并" 的代码变更 CL，而这些 CL 仅进行了表面审核。
+则团队必须修改流程，以便在周期的早期进行大的功能更改，并有足够的时间进行良好的审核。
