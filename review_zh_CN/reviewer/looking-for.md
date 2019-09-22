@@ -1,110 +1,75 @@
-# What to look for in a code review
+# What to look for in a code review 代码变更寻求什么
 
+注意：在考虑这些要点时，请始终牢记 [The Standard of Code Review](standard.md)
 
+## Design 设计
 
-Note: Always make sure to take into account
-[The Standard of Code Review](standard.md) when considering each of these
-points.
+代码审查中最重要的点是代码变更 CL 的总体设计。
+代码变更中各个部分的交互是否有意义？
+这些变更应该在当前 codebase 中，还是 code library 中国？
+它与系统的其他部分是否集成良好？
+现在是添加此功能的好时机吗？
 
-## Design
+## Functionality 功能方面
 
-The most important thing to cover in a review is the overall design of the CL.
-Do the interactions of various pieces of code in the CL make sense? Does this
-change belong in your codebase, or in a library? Does it integrate well with the
-rest of your system? Is now a good time to add this functionality?
+该代码变更是否满足开发人员的预期？开发人员打算为该代码的用户带来什么好处？
+“用户”通常包含终端用户(当他们能感受到这种变化时，比如 UI 的变化) 和 开发者(不得不调用这些代码的人)。
 
-## Functionality
+通常，我们希望开发人员能够对代码变更进行很好的测试，以保证在进行代码审查时他们能够正确的工作。
+然后，作为代码审查者，你仍然应该考虑边界情况，检查并发问题，尝试像用户一样思考，并且确保没有仅通过阅读代码就能发现的问题。
 
-Does this CL do what the developer intended? Is what the developer intended good
-for the users of this code? The "users" are usually both end-users (when they
-are affected by the change) and developers (who will have to "use" this code in
-the future).
+如果你想的话，你可以验证代码变更。
+如果代码变更对终端用户有影响，比如 **UI change** ，审查代码变更的行为是很重要的。
+仅仅通过阅读代码很难理解某些变更将如何影响用户。
+对于这些变更，如果不方便自己验证，可以让开发人员进行功能演示。
 
-Mostly, we expect developers to test CLs well-enough that they work correctly by
-the time they get to code review. However, as the reviewer you should still be
-thinking about edge cases, looking for concurrency problems, trying to think
-like a user, and making sure that there are no bugs that you see just by reading
-the code.
+另一个考虑功能特性的点是：代码变更中是否有可能引起死锁或者竞争条件的并发问题。
+仅仅通过运行代码很难发现这类问题，通常需要有人（开发人员和代码审查者）仔细考虑，以确保不会引入这类问题。
+（请注意，这也是在可能出现竞争条件或死锁的情况下不使用并发模型的一个很好的理由，这会使得进行代码审查或理解代码非常困难。）
 
-You *can* validate the CL if you want—the time when it's most important for a
-reviewer to check a CL's behavior is when it has a user-facing impact, such as a
-**UI change**. It's hard to understand how some changes will impact a user when
-you're just reading the code. For changes like that, you can have the developer
-give you a demo of the functionality if it's too inconvenient to patch in the CL
-and try it yourself.
+## Complexity 复杂性
 
-Another time when it's particularly important to think about functionality
-during a code review is if there is some sort of **parallel programming** going
-on in the CL that could theoretically cause deadlocks or race conditions. These
-sorts of issues are very hard to detect by just running the code and usually
-need somebody (both the developer and the reviewer) to think through them
-carefully to be sure that problems aren't being introduced. (Note that this is
-also a good reason not to use concurrency models where race conditions or
-deadlocks are possible—it can make it very complex to do code reviews or
-understand the code.)
+代码变更是否过于复杂？
+在代码变更的各个方面进行审查：个别代码行实现的是否太复杂？函数是否太复杂？类是否太复杂？
+代码太复杂通常表示代码阅读者难以快速理解代码。这也意味着开发人员调用或者修改这些代码时很容易引入bug。
 
-## Complexity
+一种特殊的复杂性是过度设计，即开发人员使得代码过于通用，或者增加了系统当前并不需要的功能。
+审查者应该特别警惕过度设计。
+过滤开发人员去解决已知的当前需要解决的问题，而不是开发人员推测的将来可能需要解决的问题。
+将来的问题将来解决。
 
-Is the CL more complex than it should be? Check this at every level of the
-CL—are individual lines too complex? Are functions too complex? Are classes too
-complex? "Too complex" usually means **"can't be understood quickly by code
-readers."** It can also mean **"developers are likely to introduce bugs when
-they try to call or modify this code."**
+## Tests 测试
 
-A particular type of complexity is **over-engineering**, where developers have
-made the code more generic than it needs to be, or added functionality that
-isn't presently needed by the system. Reviewers should be especially vigilant
-about over-engineering. Encourage developers to solve the problem they know
-needs to be solved *now*, not the problem that the developer speculates *might*
-need to be solved in the future. The future problem should be solved once it
-arrives and you can see its actual shape and requirements in the physical
-universe.
+要有单元测试，集成测试，端到端的测试。
+根据代码变更情况进行测试。
+一般来讲，代码修改和测试应该在同一个代码变更中，除非为了解决紧急情况 [emergency](../emergencies.md).
 
-## Tests
+保证代码变更中的测试是正确的、合理的、有用的。
+测试不会自我测试，我们很少为测试编写测试-人来保证测试的有效性。
 
-Ask for unit, integration, or end-to-end
-tests as appropriate for the change. In general, tests should be added in the
-same CL as the production code unless the CL is handling an
-[emergency](../emergencies.md).
+代码被破坏时，测试会失败吗？代码变更会导致测试误报吗？每个测试都会做出简单而有用的断言吗？
+不同的测试方法是否恰当地隔离。
 
-Make sure that the tests in the CL are correct, sensible, and useful. Tests do
-not test themselves, and we rarely write tests for our tests—a human must ensure
-that tests are valid.
+记住，测试也是要维护地代码。不要因为他们不是发布包地一部分，而接受他们地复杂性。
 
-Will the tests actually fail when the code is broken? If the code changes
-beneath them, will they start producing false positives? Does each test make
-simple and useful assertions? Are the tests separated appropriately between
-different test methods?
+## Naming 命名
 
-Remember that tests are also code that has to be maintained. Don't accept
-complexity in tests just because they aren't part of the main binary.
+开发人员是否为变量、方法、类等等选择了合适的名字？
+一个好的名字应该能表明自己是什么或者要做什么，而又不会因为太长导致难以阅读。
 
-## Naming
+## Comments 注释
 
-Did the developer pick good names for everything? A good name is long enough to
-fully communicate what the item is or does, without being so long that it
-becomes hard to read.
+开发人员是否书写了清晰的注释？
+注释都是必要的吗？通常，注释应该解释代码为什么存在，而不是说明代码在做什么。
+如果代码本身不能清晰的自我说明，代码就应该写的再简单一点。
+当前也有一些例外的情况（例如，正则表达式和复杂算法通常需要在注释中说明他们在做什么）
+但大多数注释是针对代码本身可能无法包含的信息，例如决定背后的原因。
 
-## Comments
+修改代码的时候也要检查之前的代码注释。可能某个 TODO 现在可以移除了，可能建议不要进行这块代码的修改。
 
-Did the developer write clear comments in understandable English? Are all of the
-comments actually necessary? Usually comments are useful when they **explain
-why** some code exists, and should not be explaining *what* some code is doing.
-If the code isn't clear enough to explain itself, then the code should be made
-simpler. There are some exceptions (regular expressions and complex algorithms
-often benefit greatly from comments that explain what they're doing, for
-example) but mostly comments are for information that the code itself can't
-possibly contain, like the reasoning behind a decision.
+记住，注释不同于类，模块，函数的文档，文档应该说明一段代码的用途，应该如何使用，以及使用时的行为。
 
-It can also be helpful to look at comments that were there before this CL. Maybe
-there is a TODO that can be removed now, a comment advising against this change
-being made, etc.
-
-Note that comments are different from *documentation* of classes, modules, or
-functions, which should instead express the purpose of a piece of code, how it
-should be used, and how it behaves when used.
-
-## Style
+## Style 代码风格
 
 We have [style guides](http://google.github.io/styleguide/) at Google for all
 of our major languages, and even for most of the minor languages. Make sure the
