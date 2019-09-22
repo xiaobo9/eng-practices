@@ -15,57 +15,50 @@
 代码提交记录的 `第一行` 应该概述做了什么样的修改，然后是一个空行。
 第一行应该有足够的信息，以便将来的大部分开发人员了解你的代码变更做了什么，而不需要详细阅读代码内容或者完整的提交记录信息。
 
-By tradition, the first line of a CL description is a complete sentence, written
-as though it were an order (an imperative sentence). For example, say
-\"**Delete** the FizzBuzz RPC and **replace** it with the new system." instead
-of \"**Deleting** the FizzBuzz RPC and **replacing** it with the new system."
-You don't have to write the rest of the description as an imperative sentence,
-though.
+通常，CL 代码变更的第一个描述信息应该是一个完整的命令式语句。
+比如：使用 "删除 FizzBuzz RPC 并使用新的系统替代它" 而不是 "将要删除 FizzBuzz RPC 并替换它"
+步步过，其他描述信息不必是命令式的。
 
-## Body is Informative {#informative}
+## Body is Informative 正文应该是信息充足的 {#informative}
 
-The rest of the description should be informative. It might include a brief
-description of the problem that's being solved, and why this is the best
-approach. If there are any shortcomings to the approach, they should be
-mentioned. If relevant, include background information such as bug numbers,
-benchmark results, and links to design documents.
+代码变更描述信息的其他部分应该是信息充足的。可以简要的描述要解决的问题，并说明为什么这么做是最合理的。
+如果解决方案有任何缺陷，都要在描述中提及。
+必要的话，还需要包含 bug 的编号，测试结果，设计文档链接。
 
-Even small CLs deserve a little attention to detail. Put the CL in context.
+即便是很小的代码变更，至少也要包含变更点列表。
 
-## Bad CL Descriptions {#bad}
+## Bad CL Descriptions 糟糕的代码变更描述 {#bad}
 
-"Fix bug" is an inadequate CL description. What bug? What did you do to fix it?
-Other similarly bad descriptions include:
+"Fix bug" 是无意义的描述。修改了什么杨的 bug？ 通过什么方法修复了这个 bug？
 
--   "Fix build."
--   "Add patch."
--   "Moving code from A to B."
--   "Phase 1."
--   "Add convenience functions."
--   "kill weird URLs."
+其他类似，无意义的代码变更描述：
 
-Some of those are real CL descriptions. Their authors may believe they are
-providing useful information, but they are not serving the purpose of a CL
-description.
+- "Fix build."                        修复构建
+- "Add patch."                        打补丁
+- "Moving code from A to B."          把代码从 A 移动到 B
+- "Phase 1."                          阶段 1
+- "Add convenience functions."        添加好用的功能
+- "kill weird URLs."                  干掉奇怪的 url 们
 
-## Good CL Descriptions {#good}
+上面是一些真是的代码变更描述信息。开发人员认为自己提供了有用的信息，可是它们真的毫无意义。
 
-Here are some examples of good descriptions.
+## Good CL Descriptions 好的代码变更描述 {#good}
 
-### Functionality change
+下面是一些好的代码变更描述示例.
 
-> rpc: remove size limit on RPC server message freelist.
+### Functionality change 功能变更
+
+> rpc: remove size limit on RPC server message freelist. 删除对 RPC 服务器消息空闲列表的大小限制。
 >
 > Servers like FizzBuzz have very large messages and would benefit from reuse.
 > Make the freelist larger, and add a goroutine that frees the freelist entries
 > slowly over time, so that idle servers eventually release all freelist
 > entries.
 
-The first few words describe what the CL actually does. The rest of the
-description talks about the problem being solved, why this is a good solution,
-and a bit more information about the specific implementation.
+第一行的几个单词描述了该代码变更做了什么。
+剩下的描述信息谈论了：要解决的问题，为什么这是一个好的解决方案以及该代码实现的一些信息。
 
-### Refactoring
+### Refactoring 代码重构
 
 > Construct a Task with a TimeKeeper to use its TimeStr and Now methods.
 >
@@ -80,10 +73,9 @@ and a bit more information about the specific implementation.
 >
 > Continuing the long-range goal of refactoring the Borglet Hierarchy.
 
-The first line describes what the CL does and how this is a change from the
-past. The rest of the description talks about the specific implementation, the
-context of the CL, that the solution isn't ideal, and possible future direction.
-It also explains *why* this change is being made.
+第一行描述了代码变更的目的以及跟旧代码的差异。
+剩下的描述信息说明了具体实现方案，变更的上下文(背景)，修改方案并不理想，将来可能的修改方向。
+它还说明了 `为什么` 进行此项修改。
 
 ### Small CL that needs some context
 
@@ -95,14 +87,12 @@ It also explains *why* this change is being made.
 > instead of Python2, and significantly simplifies some automated build file
 > refactoring tools being worked on currently.
 
-The first sentence describes what's actually being done. The rest of the
-description explains *why* the change is being made and gives the reviewer a lot
-of context.
+第一行描述了正在做的变更内容。
+其他部分解释了为什么做这中修改，并为代码审查者提供了很多背景(上下文)信息。
 
-## Review the description before submitting the CL
+## Review the description before submitting the CL 提交(git推送)代码之前开发人员需要自查一遍描述信息
 
-CLs can undergo significant change during review. It can be worthwhile to review
-a CL description before submitting the CL, to ensure that the description still
-reflects what the CL does.
+在代码审查期间，代码变更可能发生重大变更。
+开发人员再次提交推送代码之前应该确认一下提交信息，以保证其正确地描述了变更内容。
 
 Next: [Small CLs](small-cls.md)

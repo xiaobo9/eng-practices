@@ -1,153 +1,104 @@
-# Small CLs
+# Small CLs 尽可能小的代码变更
 
+## Why Write Small CLs? 为什么代码变更要尽可能小呢？ {#why}
 
+小的简单的代码变更有如下的好处：
 
-## Why Write Small CLs? {#why}
-
-Small, simple CLs are:
-
--   **Reviewed more quickly.** It's easier for a reviewer to find five minutes
-    several times to review small CLs than to set aside a 30 minute block to
-    review one large CL.
--   **Reviewed more thoroughly.** With large changes, reviewers and authors tend
+- **Reviewed more quickly.** 代码审查可以进行的更快。相比于耗费30分钟审查一个大块的代码变更，代码审查者更容易多次抽出五分钟的时间来审查小块的代码变更。
+- **Reviewed more thoroughly.** 代码审查的更深入。With large changes, reviewers and authors tend
     to get frustrated by large volumes of detailed commentary shifting back and
     forth—sometimes to the point where important points get missed or dropped.
--   **Less likely to introduce bugs.** Since you're making fewer changes, it's
-    easier for you and your reviewer to reason effectively about the impact of
-    the CL and see if a bug has been introduced.
--   **Less wasted work if they are rejected.** If you write a huge CL and then
-    your reviewer says that the overall direction is wrong, you've wasted a lot
-    of work.
--   **Easier to merge.** Working on a large CL takes a long time, so you will
-    have lots of conflicts when you merge, and you will have to merge
-    frequently.
--   **Easier to design well.** It's a lot easier to polish the design and code
-    health of a small change than it is to refine all the details of a large
-    change.
--   **Less blocking on reviews.** Sending self-contained portions of your
-    overall change allows you to continue coding while you wait for your current
-    CL in review.
--   **Simpler to roll back.** A large CL will more likely touch files that get
-    updated between the initial CL submission and a rollback CL, complicating
-    the rollback (the intermediate CLs will probably need to be rolled back
-    too).
+- **Less likely to introduce bugs.** 引入bug的可能性更小。代码变越小，你和你的审查者越容易评估代码变更的影响并确定是否引入了新的bug。
+- **Less wasted work if they are rejected.** 如果一次性做了大量的代码修改，而你的代码审查者发现你的修改方向是错误的，那么你就做了大量的无用功。
+- **Easier to merge.** 更容易合并。大的代码变更耗费更长的时间，所以合并代码的时候将可能发生大量的冲突，这就要求你不得不经常的拉取并合并主干上新的代码。
+- **Easier to design well.** 更容易进行良好的设计。相比于大的变更，小的变更 更容易完善设计和保证代码质量
+- **Less blocking on reviews.** 一个大修改拆解成多个小的变更，推送完一个小而完整的代码变更后，在等待审查的过程中，可以继续完成其他代码修改。开发任务不会被代码审查阻断。
+- **Simpler to roll back.** 代码回退更简单。一次大的代码变更会涉及到很多文件和代码行，这次修改之后的代码可能也需要进行回滚，这将使得回滚操作变的相当复杂。
 
-Note that **reviewers have discretion to reject your change outright for the
-sole reason of it being too large.** Usually they will thank you for your
-contribution but request that you somehow make it into a series of smaller
-changes. It can be a lot of work to split up a change after you've already
-written it, or require lots of time arguing about why the reviewer should accept
-your large change. It's easier to just write small CLs in the first place.
+要记住，代码审查者完全可以仅仅因为你的代码变更太大而拒绝你的代码合并请求。
+通常他们会感谢你的贡献，但是你要把修改变成想关联的多次小的变更请求。
+代码修改完后，无论是把大的变更拆解成多个小的变更，还是讨论修改是否被接受，都将耗费大量的时间和工作量。
+所以一开始就应该拆解成多次小的修改。
 
-## What is Small? {#what_is_small}
+## What is Small? 怎么样算作是小的代码变更？{#what_is_small}
 
-In general, the right size for a CL is **one self-contained change**. This means
-that:
+通常，一个小的变更应该是完整的独立的变更。这就要求：
 
--   The CL makes a minimal change that addresses **just one thing**. This is
-    usually just one part of a feature, rather than a whole feature at once. In
-    general it's better to err on the side of writing CLs that are too small vs.
-    CLs that are too large. Work with your reviewer to find out what an
-    acceptable size is.
--   Everything the reviewer needs to understand about the CL (except future
-    development) is in the CL, the CL's description, the existing codebase, or a
-    CL they've already reviewed.
--   The system will continue to work well for its users and for the developers
-    after the CL is checked in.
--   The CL is not so small that its implications are difficult to understand. If
-    you add a new API, you should include a usage of the API in the same CL so
-    that reviewers can better understand how the API will be used. This also
-    prevents checking in unused APIs.
+- 该代码变更只做一件事情。它可能只是功能的一部分，而不是一个大而全的功能。In general it's better to err on the side of writing CLs that are too small vs. CLs that are too large. 可以和你的代码审查者一起确认什么程度的代码变更是可接受的。
+- 代码审查者理解此次变更，只需要关注该次代码变化，代码变化的描述信息，代码仓库中的相关代码，或者他们审查过的其他代码变更。
+- 代码合并后，系统依然可以良好运行和维护，终端用户可以继续正常的使用系统，开发人员也可以继续贡献代码。
+- 代码变更难以理解就不是一个小的代码变更。如果你增加了一个新的 API，你应该在代码描述中说明 API 如何使用，以便审查者更好的理解他们。This also prevents checking in unused APIs.
 
-There are no hard and fast rules about how large is "too large." 100 lines is
-usually a reasonable size for a CL, and 1000 lines is usually too large, but
-it's up to the judgment of your reviewer. The number of files that a change is
-spread across also affects its "size." A 200-line change in one file might be
-okay, but spread across 50 files it would usually be too large.
+对于什么样的变更是过大的，并没有硬性的标准。
+通常 100 行代码变更是可接受的，1000 行代码变更就太大了，但这取决于代码审查者的判断。
+代码变更涉及到的文件数量也是评估的关键点。
+一个文件内的 200 行代码变化是 ok 的。但是将其分布在50个文件中就可以认为是太大。
 
-Keep in mind that although you have been intimately involved with your code from
-the moment you started to write it, the reviewer often has no context. What
-seems like an acceptably-sized CL to you might be overwhelming to your reviewer.
-When in doubt, write CLs that are smaller than you think you need to write.
-Reviewers rarely complain about getting CLs that are too small.
+请记住，你足够了解你写的代码，但是代码审查者很可能不了解代码变更的背景。
+所以你认为的足够小的代码变更可能超过了代码审查者的认知。
+如果有争议，请尽量让代码变化更小一些。
+代码审查者很少抱怨他们要审查的代码变更太小了。
 
-## When are Large CLs Okay? {#large_okay}
+## When are Large CLs Okay? 什么时候大的代码变更是可接受的？{#large_okay}
 
-There are a few situations in which large changes aren't as bad:
+在某些情况下，较大的代码变更没有那么糟糕：
 
--   You can usually count deletion of an entire file as being just one line of
-    change, because it doesn't take the reviewer very long to review.
--   Sometimes a large CL has been generated by an automatic refactoring tool
+- 通常删除文件，可以认为是发生了一行代码的变化，因为代码审查者不需要多长的时间就能审阅。
+- Sometimes a large CL has been generated by an automatic refactoring tool
     that you trust completely, and the reviewer's job is just to sanity check
     and say that they really do want the change. These CLs can be larger,
     although some of the caveats from above (such as merging and testing) still
     apply.
 
-### Splitting by Files {#splitting-files}
+### Splitting by Files 通过文件拆分代码变更{#splitting-files}
 
-Another way to split up a CL is by groupings of files that will require
-different reviewers but are otherwise self-contained changes.
+另外一种拆分代码变更的方式是对文件进行分组，分组后的文件可以被不同的代码审查者审阅。
+但是分组后的变更必须是完整可用的。
 
-For example: you send off one CL for modifications to a protocol buffer and
-another CL for changes to the code that uses that proto. You have to submit the
-proto CL before the code CL, but they can both be reviewed simultaneously. If
-you do this, you might want to inform both sets of reviewers about the other CL
-that you wrote, so that they have context for your changes.
+例如：你做了两个 CL 代码变更，一个 CL 修改协议缓冲区，另一个 CL 更改使用该协议的代码。
+你必须在第二个 CL 之前提交 修改协议缓冲区的 CL ，但是这两个代码变更可以同时接受审查。
+如果你要这么做，则要告知两组审阅者有关另一个 CL 的信息，以便他们都可以了解足够的信息。
 
-Another example: you send one CL for a code change and another for the
-configuration or experiment that uses that code; this is easier to roll back
-too, if necessary, as configuration/experiment files are sometimes pushed to
-production faster than code changes.
+另一个例子：一个 CL 修改了代码实现，而另一个 CL 修改了使用该代码的配置或实验；
+如果需要的话，这两个变更的代码回滚更简单，因为有时将配置/实验文件推送到生产环境中比更改代码更快。
 
-## Separate Out Refactorings {#refactoring}
+## Separate Out Refactorings 代码重构单独进行 {#refactoring}
 
-It's usually best to do refactorings in a separate CL from feature changes or
-bug fixes. For example, moving and renaming a class should be in a different CL
-from fixing a bug in that class. It is much easier for reviewers to understand
-the changes introduced by each CL when they are separate.
+通常，代码重构应该从功能修改和 bug 修复中独立出来。
+例如，移动和重命名一个类应该和修改这个类中的bug 应该是两次代码变更。
+这样代码审查者可以更好的理解每次代码变更都做了什么。
 
-Small cleanups such as fixing a local variable name can be included inside of a
-feature change or bug fix CL, though. It's up to the judgment of developers and
-reviewers to decide when a refactoring is so large that it will make the review
-more difficult if included in your current CL.
+不过，可以在功能变更或bug修复CL内进行一些小的清理工作，例如修复本地变量名称。
+It's up to the judgment of developers and reviewers to decide when a refactoring is so large that it will make the review more difficult if included in your current CL.
 
-## Keep related test code in the same CL {#test_code}
+## Keep related test code in the same CL 实现和测试代码要在一个变更中完成 {#test_code}
 
-Avoid splitting test code into a separate CL. Tests validating your code
-modifications should go into the same CL, even if it increases the code line
-count.
+避免把测试代码拆分为单独的 CL。即便会增加代码变更的行数，验证代码修改的测试代码也要包含在同一变更中。
 
-However, <i>independent</i> test modifications can go into separate CLs first,
-similar to the [refactorings guidelines](#refactoring). That includes:
+但是 `独立的` 测试代码变更可以在单独的 CL 中完成，类似与代码重构 [refactorings guidelines](#refactoring)。包含下面的几种情况：
 
-*   validating pre-existing, submitted code with new tests.
-*   refactoring the test code (e.g. introduce helper functions).
-*   introducing larger test framework code (e.g. an integration test).
+* 新的用来验证已经存在的代码的测试代码。
+* 重构测试代码。例如，引入工具函数。
+* 引入大量测试框架。例如，继承测试。
 
-## Don't Break the Build {#break}
+## Don't Break the Build 不要破坏构建 {#break}
 
-If you have several CLs that depend on each other, you need to find a way to
-make sure the whole system keeps working after each CL is submitted. Otherwise
-you might break the build for all your fellow developers for a few minutes
-between your CL submissions (or even longer if something goes wrong unexpectedly
-with your later CL submissions).
+如果你的多个代码变更彼此之间相互依赖。你就要想法确保每个变更被合并之后，整个系统依然可以正常工作。
+不然在你的所有变更合并之前，与你合作的开发人员可能就无法正常工作。
+如果直到最后一个提交合并之后代码才不报错，那么对其他开发人员的影响就更严重了。
+
+tips: 就是要确保每次合并的代码都不能导致代码库中的代码构建失败，功能严重受损。
 
 ## Can't Make it Small Enough {#cant}
 
-Sometimes you will encounter situations where it seems like your CL *has* to be
-large. This is very rarely true. Authors who practice writing small CLs can
-almost always find a way to decompose functionality into a series of small
-changes.
+有时候你会认为你的代码变更不得不很大，但是这很可能不是真的。
+有经验的开发者几乎总是可以找到方法，把大的功能拆解为一系列小的代码变更。
 
-Before writing a large CL, consider whether preceding it with a refactoring-only
-CL could pave the way for a cleaner implementation. Talk to your teammates and
-see if anybody has thoughts on how to implement the functionality in small CLs
-instead.
+在编写大的代码变更之前，考虑是否可以先重构代码，然后通过小的代码变更完成修改。
+和伙伴们讨论，看看是否有人对于通过小的代码变更实现功能有任何想法。
 
-If all of these options fail (which should be extremely rare) then get consent
-from your reviewers in advance to review a large CL, so they are warned about
-what is coming. In this situation, expect to be going through the review process
-for a long time, be vigilant about not introducing bugs, and be extra diligent
-about writing tests.
+如果所有这些选项都失败了(这种情况很少见)，那么要事先获取代码审查者的同易，以审查较大的代码变更。
+代码审查者可以提前意识到恐怖的怪物来了（大的代码变更）。
+这种情况下，代码审查将经历比较长的时间，以保证不要引入 bug，并尽力完善测试代码。
 
 Next: [How to Handle Reviewer Comments](handling-comments.md)
