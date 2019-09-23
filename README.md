@@ -1,4 +1,4 @@
-# Google Engineering Practices Documentation
+# Google Engineering Practices Documentation Google 工程实践文档
 
 Google has many generalized engineering practices that cover all languages and
 all projects. These documents represent our collective experience of various
@@ -6,23 +6,31 @@ best practices that we have developed over time. It is possible that open source
 projects or other organizations would benefit from this knowledge, so we work to
 make it available publicly when possible.
 
+google 有许多通用的工程实践，涵盖了所有语言和所有项目。这些文档涵盖了我们随着时间发展起来的最佳实践的经验。或许，开源项目或其他组织将从这些知识中受益，因此我们尽可能地将这些资料公开，以便更多人了解到它们。
+
 Currently this contains the following documents:
 
-*   [Google's Code Review Guidelines](review/index.md), which are actually two
-    separate sets of documents:
-    *   [The Code Reviewer's Guide](review/reviewer/index.md)
-    *   [The Change Author's Guide](review/developer/index.md)
+当前包含下面这些文档
 
-## Terminology
+* [Google's Code Review Guidelines](review_zh_CN/index.md), google 代码审查指南，包含下面两部分内容:
+* [The Code Reviewer's Guide 代码审查者指南](review_zh_CN/reviewer/index.md)
+* [The Change Author's Guide 代码作者指南](review_zh_CN/developer/index.md)
+
+## Terminology 术语
 
 There is some Google-internal terminology used in some of these documents, which
 we clarify here for external readers:
 
-*   **CL**: Stands for "changelist," which means one self-contained change that
+下面是一些在本文档中将要用到的 google 内部的术语
+
+* **CL**: Stands for "changelist," which means one self-contained change that
     has been submitted to version control or which is undergoing code review.
     Other organizations often call this a "change" or a "patch."
-*   **LGTM**: Means "Looks Good to Me." It is what a code reviewer says when
+* **LGTM**: Means "Looks Good to Me." It is what a code reviewer says when
     approving a CL.
+
+* **CL**: 代表 "changelist," 表示已经提交到代码库或者处于审查状态的代码变更，其他团队经常称为 "change 代码变更" 或者 "patch 补丁"
+* **LGTM**: Means "Looks Good to Me." 代码审查者准备接受代码变更时可以这么回复.
 
 ## License
 
