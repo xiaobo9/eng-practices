@@ -13,7 +13,7 @@
 - **[How To Do A Code Review](reviewer/)**: 一份针对代码审查者的详细资料
 - **[The CL Author's Guide](developer/)**: 一份针对要被审查代码的作者的详细文档。
 
-## 代码审查者们要探寻什么? {#look_for}
+## 代码审查者们要查什么? {#look_for}
 
 代码审查者们要着眼于下面这些内容:
 
@@ -22,7 +22,7 @@
 - **Complexity**: 复杂度方面，代码逻辑是否可以更简单一些？将来，其他开发人员是否可以轻松地理解并使用这些代码？
 - **Tests**: 测试方面，代码是否具有正确且设计良好的自动化测试？
 - **Naming**: 命名方面，开发人员是否选择了合适的明确的变量名，类名，方法名等等？
-- *Comments**: 注释方面，注释是否明晰且有用？
+- **Comments**: 注释方面，注释是否明晰且有用？
 - **Style**: 代码是否满足 code style 的要求 [style guides](http://google.github.io/styleguide/)?
 - **Documentation**: 开发人员是否更新了相关文档？
 
