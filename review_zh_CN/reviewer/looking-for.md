@@ -1,4 +1,4 @@
-# What to look for in a code review 代码变更寻求什么
+# What to look for in a code review 代码审查查什么
 
 注意：在考虑这些要点时，请始终牢记 [The Standard of Code Review](standard.md)
 
