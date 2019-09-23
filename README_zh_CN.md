@@ -4,9 +4,9 @@ google 有许多通用的工程实践，涵盖了所有语言和所有项目。�
 
 当前包含下面这些文档
 
-*   [Google's Code Review Guidelines](review/index.md), google 代码审查指南，包含下面两部分内容:
-    *   [The Code Reviewer's Guide 代码审查者指南](review/reviewer/index.md)
-    *   [The Change Author's Guide 代码作者指南](review/developer/index.md)
+*   [Google's Code Review Guidelines](review_zh_CN/index.md), google 代码审查指南，包含下面两部分内容:
+    *   [The Code Reviewer's Guide 代码审查者指南](review/reviewer_zh_CN/index.md)
+    *   [The Change Author's Guide 代码作者指南](review/developer_zh_CN/index.md)
 
 ## Terminology 术语
 
