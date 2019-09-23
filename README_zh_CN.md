@@ -4,16 +4,16 @@ google 有许多通用的工程实践，涵盖了所有语言和所有项目。�
 
 当前包含下面这些文档
 
-*   [Google's Code Review Guidelines](review_zh_CN/index.md), google 代码审查指南，包含下面两部分内容:
-    *   [The Code Reviewer's Guide 代码审查者指南](review/reviewer_zh_CN/index.md)
-    *   [The Change Author's Guide 代码作者指南](review/developer_zh_CN/index.md)
+* [Google's Code Review Guidelines](review_zh_CN/index.md), google 代码审查指南，包含下面两部分内容:
+* [The Code Reviewer's Guide 代码审查者指南](review_zh_CN/reviewer/index.md)
+* [The Change Author's Guide 代码作者指南](review_zh_CN/developer/index.md)
 
 ## Terminology 术语
 
 下面是一些在本文档中将要用到的 google 内部的术语
 
-*   **CL**: 代表 "changelist," 表示已经提交到代码库或者处于审查状态的代码变更，其他团队经常称为 "change 代码变更" 或者 "patch 补丁"
-*   **LGTM**: Means "Looks Good to Me." 代码审查者准备接受代码变更时可以这么回复.
+* **CL**: 代表 "changelist," 表示已经提交到代码库或者处于审查状态的代码变更，其他团队经常称为 "change 代码变更" 或者 "patch 补丁"
+* **LGTM**: Means "Looks Good to Me." 代码审查者准备接受代码变更时可以这么回复.
 
 ## License
 
