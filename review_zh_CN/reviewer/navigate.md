@@ -1,79 +1,60 @@
-# Navigating a CL in review
+# Navigating a CL in review 代码审查导览
 
+## Summary 简介
 
+Now that you know [what to look for](looking-for.md), 审查散布在多个文件中的代码最有效的方式是什么？
 
-## Summary
+1. 代码变更是否有意义? 是否有良好的描述信息[description](../developer/cl-descriptions.md)?
+2. 有限审查代码变更中的关键部分。代码是否有良好的设计？
+3. 以适当的顺序审查代码变更中的其他部分。
 
-Now that you know [what to look for](looking-for.md), what's the most efficient
-way to manage a review that's spread across multiple files?
+## 第一步：整体上了解代码变化内容 {#step_one}
 
-1.  Does the change make sense? Does it have a good
-    [description](../developer/cl-descriptions.md)?
-2.  Look at the most important part of the change first. Is it well-designed
-    overall?
-3.  Look at the rest of the CL in an appropriate sequence.
+查看代码变更描述信息 [CL description](../developer/cl-descriptions.md) 整体上了解代码变更做了什么。
 
-## Step One: Take a broad view of the change {#step_one}
+这次的代码变化是否有必要，是否有意义? 如果这次代码修改压根不应该发生，请立即回应开发人员并说明为什么这些代码不应该修改。
 
-Look at the [CL description](../developer/cl-descriptions.md) and what the CL
-does in general. Does this change even make sense? If this change shouldn't have
-happened in the first place, please respond immediately with an explanation of
-why the change should not be happening. When you reject a change like this, it's
-also a good idea to suggest to the developer what they should have done instead.
+当你拒绝像这样的代码修改时，向开发人员建议他们应该怎么做也是一个好主意。
 
-For example, you might say "Looks like you put some good work into this, thanks!
-However, we're actually going in the direction of removing the FooWidget system
-that you're modifying here, and so we don't want to make any new modifications
-to it right now. How about instead you refactor our new BarWidget class?"
+例如，你可以说：“看起来你为此做了一些出色的工作，谢谢！但是，事实上，我们将要删除你修改到的 FooWidget 系统，因此我们现在不希望对其进行任何新的修改。相反，你有兴趣重构我们的 BarWidget 类吗？”
 
-Note that not only did the reviewer reject the current CL and provide an
-alternative suggestion, but they did it *courteously*. This kind of courtesy is
-important because we want to show that we respect each other as developers even
-when we disagree.
+请注意，审阅者不仅拒绝了当前的 CL 并提出了替代建议，而且是“认真”的提出建议。这种礼貌很重要，因为即使我们不同意，我们也想表明，作为开发人员我们彼此尊重。
 
-If you get more than a few CLs that represent changes you don't want to make,
-you should consider re-working your team's development process or the posted
-process for external contributors so that there is more communication before CLs
-are written. It's better to tell people "no" before they've done a ton of work
-that now has to be thrown away or drastically re-written.
+如果你收到好几个你认为不应该发生的代码变更，那么应该考虑重新设计团队的开发流程或者外部共享这的推送流程，以便在修改代码前，进行更多的交流。
 
-## Step Two: Examine the main parts of the CL {#step_two}
+最好在开发人员做了大量的必须舍弃或者重构的代码修改之前告诉他们“不”。
 
-Find the file or files that are the "main" part of this CL. Often, there is one
-file that has the largest number of logical changes, and it's the major piece of
-the CL. Look at these major parts first. This helps give context to all of the
-smaller parts of the CL, and generally accelerates doing the code review. If the
-CL is too large for you to figure out which parts are the major parts, ask the
-developer what you should look at first, or ask them to
-[split up the CL into multiple CLs](../developer/small-cls.md).
+## 第二部：审查代码的主要部分 {#step_two}
 
-If you see some major design problems with this part of the CL, you should send
-those comments immediately, even if you don't have time to review the rest of
-the CL right now. In fact, reviewing the rest of the CL might be a waste of
-time, because if the design problems are significant enough, a lot of the other
-code under review is going to disappear and not matter anyway.
+查找属于此CL的“主要”部分的文件。 通常，一个文件的逻辑更改数量最多，这是CL的主要部分。 首先看这些主要部分。 这有助于为CL的所有较小部分提供上下文，并通常加快执行代码审阅的速度。 如果CL太大，您无法确定哪些部分是主要零件，请询问开发人员您应该首先看什么，或要求他们[将CL拆分为多个CL]（../ developer / small-cls.MD）。
 
-There are two major reasons it's so important to send these major design
-comments out immediately:
+寻找代码变更中的主要部分。通常，会有一个文件发生了很多修改的文件，而它恰好是主要修改内容。
 
--   Developers often mail a CL and then immediately start new work based on that
-    CL while they wait for review. If there are major design problems in the CL
-    you're reviewing, they're also going to have to re-work their later CL. You
-    want to catch them before they've done too much extra work on top of the
-    problematic design.
--   Major design changes take longer to do than small changes. Developers nearly
-    all have deadlines; in order to make those deadlines and still have quality
-    code in the codebase, the developer needs to start on any major re-work of
-    the CL as soon as possible.
+首先查看这些主要部分。这有助于理解代码变更的上下文背景信息，并可能加速进行代码审查的速度。
 
-## Step Three: Look through the rest of the CL in an appropriate sequence {#step_three}
+如果这次代码变更修改了太多的内容，多到你难以识别出主要的变更内容。
 
-Once you've confirmed there are no major design problems with the CL as a whole,
-try to figure out a logical sequence to look through the files while also making
-sure you don't miss reviewing any file. Usually after you've looked through the
-major files, it's simplest to just go through each file in the order that
-the code review tool presents them to you. Sometimes it's also helpful to read the tests
-first before you read the main code, because then you have an idea of what the
-change is supposed to be doing.
+让开发人员告诉你应该先看什么，或者让他们把代码分成多次进行修改，审查 [split up the CL into multiple CLs](../developer/small-cls.md)。
 
-Next: [Speed of Code Reviews](speed.md)
+如果您发现 CL 的主要部分存在一些重要的设计问题，那么即使你现在没有时间审查 CL 的其余部分，也应立即发送相关问题评论。
+
+实际上，如果设计问题足够严重，那么其余的很多代码都将消失，而且无论如何都不会变得很重要，这时再复查 CL 的其余部分就是浪费时间。
+
+立即评论这些重要设计缺陷的两个主要原因：
+
+- 经常地，开发人员通常推送一个 CL 后，在等待代码审查的时候，立马基于该 CL 开始新的工作内容。
+  如果你审查的代码中有主要涉及问题，他们也将不得不重构稍后的修改。
+  你需要阻止他们在错误的基础上做更多额外的工作。
+- 重大的设计变更要比小变化花费更长的时间。开发人员几乎都会有工作截止日期，为了在截止日期前完成工作并在代码库中保留高质量的代码，开发人员需要尽快开始这次代码变更中的任何重要的重构工作。
+
+## 第三步：以适当的顺序审查代码变更中的其他部分 {#step_three}
+
+确认CL整体上没有大的设计问题后，请尝试找出逻辑顺序来浏览文件，同时还要确保不要错过对任何文件的审查。 通常，在浏览了主要文件之后，按照代码审查工具向您展示它们的顺序浏览每个文件是最简单的。 有时在阅读主要代码之前先阅读测试也是有帮助的，因为这样您就可以知道更改应该做什么。
+
+确定代码修改中没有大的设计缺陷后，请尝试找出逻辑顺序来阅览代码文件，同时确保不要错过对任何文件的审查。
+
+通常，在阅读了主要文件之后，按照代码审查工具展现的顺序浏览每个文件是最简单的。
+
+有时在阅读主要代码之前阅读测试用例也是有帮助的，因为这样你可以了解到这些代码变更应该做什么。
+
+Next: [Speed of Code Reviews 代码审查速度](speed.md)

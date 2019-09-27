@@ -6,7 +6,7 @@
 
 - [The Standard of Code Review 代码审查的标准](standard.md)
 - [What to Look For In a Code Review 代码审查查什么](looking-for.md)
-- [Navigating a CL in Review](navigate.md)
+- [Navigating a CL in Review 代码审查导览](navigate.md)
 - [Speed of Code Reviews 代码审查的速度](speed.md)
 - [How to Write Code Review Comments 怎么编写代码审查评论](comments.md)
 - [Handling Pushback in Code Reviews](pushback.md)
