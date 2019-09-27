@@ -1,138 +1,84 @@
-# Speed of Code Reviews
+# Speed of Code Reviews 代码审查的速度
 
+## Why Should Code Reviews Be Fast? 为什么代码审查要快？ {#why}
 
+**在Google，我们优化一组开发人员可以共同生产产品的速度**，而不是优化单个开发人员可以编写代码的速度。 个人开发的速度很重要，但并不像整个团队的速度那么重要。
 
-## Why Should Code Reviews Be Fast? {#why}
+代码审查速度慢的话，会发生这么几件事情：
 
-**At Google, we optimize for the speed at which a team of developers can produce
-a product together**, as opposed to optimizing for the speed at which an
-individual developer can write code. The speed of individual development is
-important, it's just not _as_ important as the velocity of the entire team.
+* **整个团队的速度会降低** 是的，对代码审查没有迅速回应的个人可以完成其他工作。
+  但是，由于每个 CL 等待审查和重新审查，团队其他人的新增功能和 bug 修复将被推迟几天，几周甚至几个月。
+* **开发人员将开始拒绝代码审查过程** 如果审查者每个几天才做出一次回应，但每次都要求对 CL 进行重大变更，开发人员会感到沮丧和困难。
+  通常，开发人员会抱怨为什么审查者会变得这么严格。
+  如果审查者要求同样的实质性更改(确实可以提升代码质量的)，但是每次都快速响应，则抱怨将会慢慢消失。
+  **加快代码审查速度将解决大多数关于代码审查过程得抱怨**
+* **代码健康状况可能会受到影响** 当审查缓慢时，允许开发人员提交不如预期的代码变更的压力会增大。
+  缓慢的审查也会阻止代码整洁，代码重构和对现有代码的进一步改进。
 
-When code reviews are slow, several things happen:
+## How Fast Should Code Reviews Be? 代码审查应该有多快？ {#fast}
 
-*   **The velocity of the team as a whole is decreased.** Yes, the individual,
-    who doesn't respond quickly to the review, gets other work done. However,
-    new features and bug fixes for the rest of the team are delayed by days,
-    weeks, or months as each CL waits for review and re-review.
-*   **Developers start to protest the code review process.** If a reviewer only
-    responds every few days, but requests major changes to the CL each time,
-    that can be frustrating and difficult for developers. Often, this is
-    expressed as complaints about how "strict" the reviewer is being. If the
-    reviewer requests the _same_ substantial changes (changes which really do
-    improve code health) but responds _quickly_ every time the developer makes
-    an update, the complaints tend to disappear. **Most complaints about the
-    code review process are actually resolved by making the process faster.**
-*   **Code health can be impacted.** When reviews are slow, there is increased
-    pressure to allow developers to submit CLs that are not as good as they
-    could be. Slow reviews also discourage code cleanups, refactorings, and
-    further improvements to existing CLs.
+如果你没有参与重点工作，***你应该在代码审查被提出后尽快进行审查。*
 
-## How Fast Should Code Reviews Be? {#fast}
+**一个工作日是响应代码审查请求所需的最长时间**（即第二天早上的第一件事）。
 
-If you are not in the middle of a focused task, **you should do a code review
-shortly after it comes in.**
+遵循这些准则意味着，如果需要的话，一个典型的 代码变更 应在一天之内进行多轮审核。
 
-**One business day is the maximum time it should take to respond** to a code
-review request (i.e. first thing the next morning).
+## Speed vs. Interruption 速度 vs 中断 {#interruption}
 
-Following these guidelines means that a typical CL should get multiple rounds of
-review (if needed) within a single day.
+有一种场景，个人速度的考量胜过团队速度。**如果你正在进行编码带啊之类的重点任务中，不要为了代码审查打破自己的工作。**
+研究表明，开发人员被打断后，将要花费很长的时间才能使得被中断的工作再次顺畅起来。
+因此，对团队来说，中断审查者的编码工作比让开发人员稍等代码审查要昂贵的多。
 
-## Speed vs. Interruption {#interruption}
+相反，自己的工作完成一个节点后再响应代码审查。可以是自己的代码写完后，午餐后，开完会后等等。
 
-There is one time where the consideration of personal velocity trumps team
-velocity. **If you are in the middle of a focused task, such as writing code,
-don't interrupt yourself to do a code review.** Research has shown that it can
-take a long time for a developer to get back into a smooth flow of development
-after being interrupted. So interrupting yourself while coding is actually
-_more_ expensive to the team than making another developer wait a bit for a code
-review.
+## Fast Responses 快速响应 {#responses}
 
-Instead, wait for a break point in your work before you respond to a request for
-review. This could be when your current coding task is completed, after lunch,
-returning from a meeting, coming back from the microkitchen, etc.
+我们谈论代码审查速度的时候，我们关心的是响应时间，而不是整个 CL 需要多长时间才能通过评审并合并。
+理想情况下，整个流程也应该是快速的，但是 **与整个过程的快速推进相比，单个的快速反馈来的更重要**
 
-## Fast Responses {#responses}
+即使有时需要很长时间才能完成整个审查过程，但在整个审查过程中，获得审查者的快速响应也可以极大地减轻开发人员对“缓慢”代码审查的挫败感。
 
-When we talk about the speed of code reviews, it is the _response_ time that we
-are concerned with, as opposed to how long it takes a CL to get through the
-whole review and be submitted. The whole process should also be fast, ideally,
-but **it's even more important for the _individual responses_ to come quickly
-than it is for the whole process to happen rapidly.**
+如果代码审查请求到来的时候你正忙于自己的工作，你仍然可以快速响应，让开发人员了解你什么时候可以做代码审查，推荐其他可以快速响应的审查者，或者提供一些初步的广泛意见(navigate.md)。
+（注意：这都不意味着你应该中断编码工作来做出响应，仍然要在工作的合理节点进行回应）
 
-Even if it sometimes takes a long time to get through the entire review
-_process_, having quick responses from the reviewer throughout the process
-significantly eases the frustration developers can feel with "slow" code
-reviews.
+**重要的是，审查者应该花费足够的时间进行代码审查，以确保 "LGTM" 真的表示 "我认为代码是符合我们的标准的(standard.md)"。但是，针对关键信息的个别的审查响应仍然应该是要快速的。
 
-If you are too busy to do a full review on a CL when it comes in, you can still
-send a quick response that lets the developer know when you will get to it,
-suggest other reviewers who might be able to respond more quickly, or
-[provide some initial broad comments](navigate.md). (Note: none of this means
-you should interrupt coding even to send a response like this&mdash;send the
-response at a reasonable break point in your work.)
+## Cross-Time-Zone Reviews 跨时区的代码审查 {#tz}
 
-**It is important that reviewers spend enough time on review that they are
-certain their "LGTM" means "this code meets [our standards](standard.md)."**
-However, individual responses should still ideally be [fast](#fast).
+如果有时差，请在他们仍在办公室的时候进行联系。如果他们已经回家了，尽力确保在他们明天上班之前，你已经完成了代码审查。
 
-## Cross-Time-Zone Reviews {#tz}
-
-When dealing with time zone differences, try to get back to the author when they
-are still in the office. If they have already gone home, then try to make sure
-your review is done before they get back to the office the next day.
+老外真的都不加班的么。。。
 
 ## LGTM With Comments {#lgtm-with-comments}
 
-In order to speed up code reviews, there are certain situations in which a
-reviewer should give LGTM/Approval even though they are also leaving unresolved
-comments on the CL. This is done when either:
+为了加速代码审查，有几种场景，即便代码变更上仍有待处理的评论，审查人员仍应表示 LGTM/Approval。
 
-*   The reviewer is confident that the developer will appropriately address all
-    the reviewer's remaining comments.
-*   The remaining changes are minor and don't _have_ to be done by the
-    developer.
+* 审查者确认开发人员将适当地解决所有遗留地评论问题。
+* 其余的更改是次要的，开发人员不是必须处理的。
 
-The reviewer should specify which of these options they intend, if it is not
-otherwise clear.
+除非另有明确说明，否则审查者应指定他们打算使用这些选项中的哪一个。
 
-LGTM With Comments is especially worth considering when the developer and
-reviewer are in different time zones and otherwise the developer would be
-waiting for a whole day just to get "LGTM, Approval."
+当开发人员和审查者处于不同的时区时，带有问题的 LGTM 值得考虑，否则开发人员将等待一整天才能获取 "LGTM, 批准"
 
-## Large CLs {#large}
+## Large CLs 大的代码变更 {#large}
 
-If somebody sends you a code review that is so large you're not sure when you
-will be able to have time to review it, your typical response should be to ask
-the developer to
-[split the CL into several smaller CLs](../developer/small-cls.md) that build on
-each other, instead of one huge CL that has to be reviewed all at once. This is
-usually possible and very helpful to reviewers, even if it takes additional work
-from the developer.
+如果有人给你发送了一个很大的代码变更，以至于你不知道何时有时间审查它，你应该要求开发人员拆分代码变更(../developer/small-cls.md)，进行多次审查。
+通常这是可能的，而且对审查者有帮助，即便开发人员需要额外的工作。
 
-If a CL *can't* be broken up into smaller CLs, and you don't have time to review
-the entire thing quickly, then at least write some comments on the overall
-design of the CL and send it back to the developer for improvement. One of your
-goals as a reviewer should be to always unblock the developer or enable them to
-take some sort of further action quickly, without sacrificing code health to do
-so.
+如果代码变更不能被分解，你也没有时间快速的审查整个代码，那么至少对代码变更的整体设计写一些评论，然后反馈给开发人员，让他/她们改进代码。作为审查者的目标之一是确保开发人员的工作不被审查阻隔，同时又不牺牲代码的健康状况。
 
-## Code Review Improvements Over Time {#time}
+## Code Review Improvements Over Time 随着时间的推移，代码审查的改进 {#time}
 
-If you follow these guidelines and you are strict with your code reviews, you
-should find that the entire code review process tends to go faster and faster
-over time. Developers learn what is required for healthy code, and send you CLs
-that are great from the start, requiring less and less review time. Reviewers
-learn to respond quickly and not add unnecessary latency into the review
-process.
-But **don't compromise on
-the [code review standards](standard.md) or quality for an imagined improvement
-in velocity**&mdash;it's not actually going to make anything happen more
-quickly, in the long run.
+如果你遵循这些指南，并且严格的执行代码审查，你将发现随着时间的流逝，整个代码审查过程越来越快。
+开发人员将了解健康代码的要求，并从一开始就推送出色的代码变更，需要的审查时间越来越少。
+审查者学会快速响应，并且不会再审查过程中增加不必要的延迟。
 
-## Emergencies
+但是，不要为了代码审查速度，在代码审查标准[code review standards](standard.md)和质量上进行妥协。长期来看，实际上不会使任何事情更快地发生。
 
+## Emergencies 紧急情况
+
+还是会有紧急情况[emergencies](../emergencies.md)，不得不降低质量标准使得代码变更可以快速通过整个审查过程。
+但是， 要参阅[What Is An Emergency?](../emergencies.md#what)，以了解什么是紧急情况，什么不是。
 There are also [emergencies](../emergencies.md) where CLs must pass through the
 _whole_ review process very quickly, and where the quality guidelines would be
 relaxed. However, please see [What Is An Emergency?](../emergencies.md#what) for
