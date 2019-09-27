@@ -79,10 +79,5 @@
 
 还是会有紧急情况[emergencies](../emergencies.md)，不得不降低质量标准使得代码变更可以快速通过整个审查过程。
 但是， 要参阅[What Is An Emergency?](../emergencies.md#what)，以了解什么是紧急情况，什么不是。
-There are also [emergencies](../emergencies.md) where CLs must pass through the
-_whole_ review process very quickly, and where the quality guidelines would be
-relaxed. However, please see [What Is An Emergency?](../emergencies.md#what) for
-a description of which situations actually qualify as emergencies and which
-don't.
 
 Next: [How to Write Code Review Comments](comments.md)
