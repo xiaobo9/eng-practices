@@ -1,70 +1,49 @@
-# How to write code review comments
+# How to write code review comments 怎么编写代码审查评论
 
+## Summary 简介
 
+- Be kind. 友善一些。
+- Explain your reasoning. 说明你地理由。
+- 给出明确地方向？仅仅指出问题，让开发人员决定怎么做？ 权衡一下。
+- 鼓励开发人员简化代码或者增加代码注释，而不是仅向你个人解释代码的复杂性。
 
-## Summary
+## Courtesy 礼貌
 
--   Be kind.
--   Explain your reasoning.
--   Balance giving explicit directions with just pointing out problems and
-    letting the developer decide.
--   Encourage developers to simplify code or add code comments instead of just
-    explaining the complexity to you.
+对代码被审查的开发人员应该礼貌和尊重，审查意见也要清楚且有帮助。
+代码审查意见只针对代码而不对人。
+评论意见会会让开发人员沮丧或者引起争论的时候，一定要遵循这些意见。
 
-## Courtesy
+例如：
 
-In general, it is important to be
-courteous and respectful while also being
-very clear and helpful to the developer whose code you are reviewing. One way to
-do this is to be sure that you are always making comments about the *code* and
-never making comments about the *developer*. You don't always have to follow
-this practice, but you should definitely use it when saying something that might
-otherwise be upsetting or contentious. For example:
+糟糕的例子：“在并发显然没有好处的情况下，为什么‘你’要在这里使用多线程”
 
-Bad: "Why did **you** use threads here when there's obviously no benefit to be
-gained from concurrency?"
+好的例子：“这里的并发模型将增加系统的复杂性，而我没有看出来任何实际的性能优势。
+因为没有性能方面的优势，所以这块代码最好使用单线程。”
 
-Good: "The concurrency model here is adding complexity to the system without any
-actual performance benefit that I can see. Because there's no performance
-benefit, it's best for this code to be single-threaded instead of using multiple
-threads."
+## Explain Why 说明为什么 {#why}
 
-## Explain Why {#why}
+从上面好的例子，你应该注意到一件事情：你需要帮开发人员了解你给出评论意见的原因。
+并不总是需要你在代码评论中包含此信息，但有时需要对你的意图、你遵循的最佳实践或你的建议将如何改善代码运行状况给出更多的解释。
 
-One thing you'll notice about the "good" example from above is that it helps the
-developer understand *why* you are making your comment. You don't always need to
-include this information in your review comments, but sometimes it's appropriate
-to give a bit more explanation around your intent, the best practice you're
-following, or how your suggestion improves code health.
+## Giving Guidance 指导 {#guidance}
 
-## Giving Guidance {#guidance}
+**通常，修复代码变更中的缺陷是开发人员而不是审查者的责任。** 你不需为解决方案做详细设计，或者帮开发人员写代码。
 
-**In general it is the developer's responsibility to fix a CL, not the
-reviewer's.** You are not required to do detailed design of a solution or write
-code for the developer.
+但是，这并不意味着审查者不应该做出帮助。你需要在指出问题和提供直接的知道之间做出权衡。
+指出问题并让开发人员做决定可以帮助开发人员学习，然后使得代码审查越来越容易。
+而且开发人员可能给出更好的解决方案，因为开发人员比审查者更接近这部分代码。
 
-This doesn't mean the reviewer should be unhelpful, though. In general you
-should strike an appropriate balance between pointing out problems and providing
-direct guidance. Pointing out problems and letting the developer make a decision
-often helps the developer learn, and makes it easier to do code reviews. It also
-can result in a better solution, because the developer is closer to the code
-than the reviewer is.
+但是，有时，直接的指导，建议甚至代码将更有帮助。
 
-However, sometimes direct instructions, suggestions, or even code are more
-helpful. The primary goal of code review is to get the best CL possible. A
-secondary goal is improving the skills of developers so that they require less
-and less review over time.
+* 代码审查的主要目标是使得代码变更尽可能地好
+* 代码审查的第二个目标是提高开发人员的技能，然后他们的代码需要的审查就可以越来越少
 
-## Accepting Explanations {#explanations}
+## Accepting Explanations 接受解释 {#explanations}
 
-If you ask a developer to explain a piece of code that you don't understand,
-that should usually result in them **rewriting the code more clearly**.
-Occasionally, adding a comment in the code is also an appropriate response, as
-long as it's not just explaining overly complex code.
+如果你要求开发人员解释一段你不理解的代码，通常使得他们把“代码重构的更清晰” **。
+有时，在代码中添加注释也是一种适当的响应，只要它不只是解释过于复杂的代码即可。
 
-**Explanations written only in the code review tool are not helpful to future
-code readers.** They are acceptable only in a few circumstances, such as when
-you are reviewing an area you are not very familiar with and the developer
-explains something that normal readers of the code would have already known.
+**仅在代码审查工具中编写的说明对将来的代码阅读者毫无意义。**
+仅在某些情况下，比如，这段你不熟悉的代码，开发人员解释的内容，将来的阅读者是了解的，开发人员在审查工具中的解释说明是可接受的，这时候也就不必要求开发人员在代码中做出解释。
 
 Next: [Handling Pushback in Code Reviews](pushback.md)
