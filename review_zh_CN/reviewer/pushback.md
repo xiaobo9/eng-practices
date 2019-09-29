@@ -1,32 +1,24 @@
-# Handling pushback in code reviews
+# Handling pushback in code reviews 处理代码审查中的反弹
 
+有时开发人员会拒绝接受代码评论。他们要么不同意你的建议，要么抱怨你的审查过于严格。
 
+## Who is right? 谁是正确的？ {#who_is_right}
 
-Sometimes a developer will push back on a code review. Either they will disagree
-with your suggestion or they will complain that you are being too strict in
-general.
+如果开发人员不同意你的审查意见，先花点时间考虑一下他们是不是对的。
+通常，他们比你更接近这些代码，因此实际上，他们可能对代码的某些方面有更好的了解。
+他们的论点有意义吗？这有助于提升代码健康状况吗？
+如果是的话，让他们知道他们是对的，并关闭问题评论。
 
-## Who is right? {#who_is_right}
-
-When a developer disagrees with your suggestion, first take a moment to consider
-if they are correct. Often, they are closer to the code than you are, and so
-they might really have a better insight about certain aspects of it. Does their
-argument make sense? Does it make sense from a code health perspective? If so,
-let them know that they are right and let the issue drop.
-
-However, developers are not always right. In this case the reviewer should
-further explain why they believe that their suggestion is correct. A good
-explanation demonstrates both an understanding of the developer's reply, and
-additional information about why the change is being requested.
+但是，开发人员并不总是对的。这时候，审查者应该进一步解释为什么认为自己的审查意见是正确的。
+好的解释即说明你理解了开发人员的回复，也说明了为什么代码应该被修正。
 
 In particular, when the reviewer believes their suggestion will improve code
 health, they should continue to advocate for the change, if they believe the
 resulting code quality improvement justifies the additional work requested.
 **Improving code health tends to happen in small steps.**
 
-Sometimes it takes a few rounds of explaining a suggestion before it really
-sinks in. Just make sure to always stay [polite](comments.md#courtesy) and let
-the developer know that you *hear* what they're saying, you just don't *agree*.
+有时，在审查意见被采纳之前，需要经过多轮审查意见的讨论。
+请确保始终保持[polite 礼貌](comments.md#courtesy)，并让开发人员了解你看了他们的回复，但是你并不同意。
 
 ## Upsetting Developers {#upsetting_developers}
 
@@ -39,7 +31,7 @@ just in the reviewer's mind. Upsets are usually more about
 [the way comments are written](comments.md#courtesy) than about the reviewer's
 insistence on code quality.
 
-## Cleaning It Up Later {#later}
+## Cleaning It Up Later 不要延迟清洁代码 {#later}
 
 A common source of push back is that developers (understandably) want to get
 things done. They don't want to go through another round of review just to get
