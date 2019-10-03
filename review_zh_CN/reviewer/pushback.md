@@ -12,64 +12,42 @@
 但是，开发人员并不总是对的。这时候，审查者应该进一步解释为什么认为自己的审查意见是正确的。
 好的解释即说明你理解了开发人员的回复，也说明了为什么代码应该被修正。
 
-In particular, when the reviewer believes their suggestion will improve code
-health, they should continue to advocate for the change, if they believe the
-resulting code quality improvement justifies the additional work requested.
-**Improving code health tends to happen in small steps.**
+尤其是，当审查者相信他们的审查意见将提升代码质量，如果代码质量的提升值得为此付出的工作量，那么他们应该继续主张这些变更。**代码质量将一点点的提升**
 
 有时，在审查意见被采纳之前，需要经过多轮审查意见的讨论。
 请确保始终保持[polite 礼貌](comments.md#courtesy)，并让开发人员了解你看了他们的回复，但是你并不同意。
 
 ## Upsetting Developers {#upsetting_developers}
 
-Reviewers sometimes believe that the developer will be upset if the reviewer
-insists on an improvement. Sometimes developers do become upset, but it is
-usually brief and they become very thankful later that you helped them improve
-the quality of their code. Usually, if you are [polite](comments.md#courtesy) in
-your comments, developers actually don't become upset at all, and the worry is
-just in the reviewer's mind. Upsets are usually more about
-[the way comments are written](comments.md#courtesy) than about the reviewer's
-insistence on code quality.
+有时，审查者相信，坚持一项代码改进会让开发人员感到沮丧。
+有时，开发人员的确会这样，但是这通常是短暂的，然后他们会感谢你帮助他们提高了代码质量。
+通常，如果你的评论是[礼貌](comments.md#courtesy)的，开发人员实际上一点也不会郁闷。
+令人不安的通常是[审查意见的表达方式]](comments.md#courtesy)而不是审查者对代码质量的坚持。
 
 ## Cleaning It Up Later 不要延迟清洁代码 {#later}
 
-A common source of push back is that developers (understandably) want to get
-things done. They don't want to go through another round of review just to get
-this CL in. So they say they will clean something up in a later CL, and thus you
-should LGTM *this* CL now. Some developers are very good about this, and will
-immediately write a follow-up CL that fixes the issue. However, experience shows
-that as more time passes after a developer writes the original CL, the less
-likely this clean up is to happen. In fact, usually unless the developer does
-the clean up *immediately* after the present CL, it never happens. This isn't
-because developers are irresponsible, but because they have a lot of work to do
-and the cleanup gets lost or forgotten in the press of other work. Thus, it is
-usually best to insist that the developer clean up their CL *now*, before the
-code is in the codebase and "done." Letting people "clean things up later" is a
-common way for codebases to degenerate.
+审查意见被拒绝的一个通常的原因是开发人员想要以合理的方式完成开发任务。
+他们不想仅仅为了代码被合并而开启另一轮的审查交互。
+他们表示会在一个稍后的代码变更中整理代码，而你应该现在就把在审查中的代码合并了。
+一些开发人员非常善于这么做，而他们也会立马提起一个整理代码的合并请求。
+但是，经验表明时间过的越久，代码修复越不可能发生。
+事实上，除非开发人员立刻提起整理代码的合并请求，否则这些代码永远都不会被清理。
+这不是因为开发人员不负责任，而是因为他们有很多工作要做，在其他工作的压力中，清理代码这事就被遗漏后者忘记了。
+因此，通常最好坚持要求开发人员在代码被合并之前立马整理代码内容。
+让开发人员以后再清理代码是导致代码质量变差的最常见的一种情况。
 
-If a CL introduces new complexity, it must be cleaned up before submission
-unless it is an [emergency](../emergencies.md). If the CL exposes surrounding
-problems and they can't be addressed right now, the developer should file a bug
-for the cleanup and assign it to themselves so that it doesn't get lost. They
-can optionally also write a TODO comment in the code that references the filed
-bug.
+如果代码变更引入了新的复杂度，除非是紧急情况[emergency](../emergencies.md)，代码应该立即被整理。
+如果代码变更暴露了其他周边问题，并且现在无法解决，开发人员应该记录一下并把自己标记为负责人，免得问题被遗漏。
+他们可以选择性的在代码中书写 TODO 注释标记这个相关的 bug。
 
-## General Complaints About Strictness {#strictness}
+## General Complaints About Strictness 抱怨代码审查太严格 {#strictness}
 
-If you previously had fairly lax code reviews and you switch to having strict
-reviews, some developers will complain very loudly. Improving the
-[speed](speed.md) of your code reviews usually causes these complaints to fade
-away.
+如果你以前审查代码相当宽松，而现在改为进行严格的审查，一些开发人员会有很大的怨言。
+那么提升代码审查的速度[speed](speed.md)可以让这些抱怨渐渐消失。
 
-Sometimes it can take months for these complaints to fade away, but eventually
-developers tend to see the value of strict code reviews as they see what great
-code they help generate. Sometimes the loudest protesters even become your
-strongest supporters once something happens that causes them to really see the
-value you're adding by being strict.
+有时，这些抱怨可能耗费数月才能消失，但是最终开发者会看到严格代码审查的意义，因为他们看到了他们自己生产的越来越好的代码。
+有时候，严格代码审查增加的价值会让怨言最大的开发人员成为你最鉴定的支持者。
 
-## Resolving Conflicts {#conflicts}
+## Resolving Conflicts 处理冲突 {#conflicts}
 
-If you are following all of the above but you still encounter a conflict between
-yourself and a developer that can't be resolved, see
-[The Standard of Code Review](standard.md) for guidelines and principles that
-can help resolve the conflict.
+如果你遵循了上面所有这些原则，但是你仍然遇到和开发人员之间无法解决的冲突，请参见代码审查标准[The Standard of Code Review](standard.md)，这些应该可以帮助解决冲突。
